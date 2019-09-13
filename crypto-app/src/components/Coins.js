@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useDebugValue } from 'react';
 import { connect } from 'react-redux';
 import { PageHeader, Tag, Button, Statistic, Descriptions, Row, Skeleton } from 'antd';
 
@@ -6,7 +6,7 @@ import { PageHeader, Tag, Button, Statistic, Descriptions, Row, Skeleton } from 
 import { getCoin } from '../actions';
 import Coin from '../components/Coin';
 
-const Coins = ({ getCoin, coin, isFetching, error }) => {
+const Coins = ({ getCoin, coin, quotes, USD, isFetching, error }) => {
     useEffect(() => {
         // run action creator when component mounts
         getCoin();
@@ -25,21 +25,21 @@ const Coins = ({ getCoin, coin, isFetching, error }) => {
                         <div>
                             <PageHeader
                             title={item.name}
-                            tags={<Tag color="blue">Running</Tag>}
-                            subTitle="This is a subtitle"
+                            tags={<Tag color="blue">Rank:{item.rank}</Tag>}
+                            subTitle={item.symbol}
                             >
                             <h3>This is the text</h3>
                             <Row type="flex">
-                                <Statistic title="Status" value="Pending" />
+                                <Statistic title="Beta-Value" value={item.beta_value} />
                                 <Statistic
                                 title="Price"
                                 prefix="$"
-                                value={568.08}
+                                value={item.circulating_supply}
                                 style={{
                                     margin: "0 32px"
                                 }}
                                 />
-                                <Statistic title="Balance" prefix="$" value={3345.08} />
+                                <Statistic title="Market Cap" prefix="$" value={54656} />
                             </Row>
                             <br />
                             <Button key="1" type="primary">
