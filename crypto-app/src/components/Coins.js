@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { PageHeader, Tag, Button, Statistic, Descriptions, Row, Skeleton } from 'antd';
+
+
 import { getCoin } from '../actions';
 import Coin from '../components/Coin';
 
@@ -10,23 +13,43 @@ const Coins = ({ getCoin, coin, isFetching, error }) => {
     }, [getCoin])
 
     if(isFetching){
-        return <h3>Fetching Coin Data For You...</h3>
+        return <Skeleton avatar paragraph={{ rows: 4 }} />
     }
 
     return (
         <div>
-            <ul>
                 
                 {coin.map(item => {
                     return (
                     <>
-                        <li className='coin' key={item.id}>{item.symbol}</li>
-                        <h3>{item.name}</h3>
-                        <h4>{item.price}</h4>
+                        <div>
+                            <PageHeader
+                            title={item.name}
+                            tags={<Tag color="blue">Running</Tag>}
+                            subTitle="This is a subtitle"
+                            >
+                            <h3>This is the text</h3>
+                            <Row type="flex">
+                                <Statistic title="Status" value="Pending" />
+                                <Statistic
+                                title="Price"
+                                prefix="$"
+                                value={568.08}
+                                style={{
+                                    margin: "0 32px"
+                                }}
+                                />
+                                <Statistic title="Balance" prefix="$" value={3345.08} />
+                            </Row>
+                            <br />
+                            <Button key="1" type="primary">
+                                Primary
+                            </Button>
+                            </PageHeader>
+                        </div>
                     </>
                     )
                 })}
-            </ul>
         </div>
     )
 }
